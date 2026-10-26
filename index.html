@@ -1,0 +1,286 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Intercambio 2027</title>
+<meta name="theme-color" content="#f9bcd1"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="Intercambio">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=DM+Serif+Display&family=DM+Mono:wght@400;500&display=swap">
+<style>
+:root{--bg:#fff;--card:#fff;--ink:#262626;--mut:#6d6d72;--line:#e6e6ea;--ac:#262626;--acs:#fde3ec;--ok:#5e8f2e;--warn:#b0467a;--pink:#f9bcd1;--blue:#b7dde6;--green:#b9d48f;--blk:#262626;box-sizing:border-box}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#101014;--card:#1a1a21;--ink:#f1f1f4;--mut:#9a9aa6;--line:#2a2a33;--ac:#8ea2ff;--acs:#23284a;--ok:#4cc794;--warn:#e5a54a}}
+:root[data-theme="dark"]{--bg:#101014;--card:#1a1a21;--ink:#f1f1f4;--mut:#9a9aa6;--line:#2a2a33;--ac:#8ea2ff;--acs:#23284a;--ok:#4cc794;--warn:#e5a54a}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.45 "DM Sans",system-ui,-apple-system,"Segoe UI",sans-serif;-webkit-font-smoothing:antialiased}
+.eyebrow{font-size:11px;letter-spacing:-1px;text-transform:uppercase;color:var(--mut);font-weight:600}
+h1,h2,.trip h3,.card h3{font-family:"DM Serif Display",Georgia,serif;font-weight:400}h1{font-size:clamp(45px,13vw,83px);line-height:.98;margin:16px 0 24px;letter-spacing:-.035em}h1 mark{background:var(--tc);color:inherit;padding:0 .12em;-webkit-box-decoration-break:clone;box-decoration-break:clone}
+.cd{display:inline-flex;align-items:center;gap:9px;background:var(--card);color:var(--ink);border:1px solid var(--ink);border-radius:99px;padding:9px 22px}.cd::before{content:"";width:10px;height:10px;border-radius:50%;background:var(--tc)}
+.cd b{font:400 25px/1 "DM Serif Display",serif}.cd span{font-size:12px;font-weight:500}
+.chips{display:flex;gap:6px;flex-wrap:wrap;margin:6px 0 14px}
+.chip{border:1px solid var(--line);background:var(--card);color:var(--ink);font:500 10px "DM Mono",monospace;letter-spacing:-1px;text-transform:uppercase;padding:7px 11px;border-radius:6px;cursor:pointer}
+.chip.on{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+h2{font-size:29px;font-weight:400;letter-spacing:-.02em;color:var(--ink);margin:26px 0 12px}
+.it{display:flex;gap:14px;background:var(--card);color:var(--ink);border:1px solid var(--line);border-radius:20px;padding:16px 18px;margin-bottom:8px}
+.it.past{opacity:.5}
+.dt{min-width:46px;text-align:center}.dt b{display:block;font-size:21px;line-height:1.05}.dt span{font-size:10px;color:var(--mut);text-transform:uppercase;font-weight:600}
+.bd{flex:1;min-width:0}.tt{font:400 20px/1.15 "DM Serif Display",Georgia,serif}
+.mt{color:var(--mut);font-size:12px}
+.dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:6px;vertical-align:1px}
+.tag{display:inline-block;font-size:10px;font-weight:600;border-radius:6px;padding:1px 7px;margin:4px 6px 0 0;background:var(--acs);color:var(--ac)}
+.tag.w2{background:transparent;border:1px solid var(--warn);color:var(--warn)}
+.tag.g{background:transparent;border:1px solid var(--ok);color:var(--ok)}
+.when{font-size:11px;color:var(--mut);white-space:nowrap}
+.ck{appearance:none;width:22px;height:22px;border:1.5px solid var(--line);border-radius:7px;flex:none;margin:2px 0 0;cursor:pointer;background:var(--card)}
+.ck:checked{background:var(--ok);border-color:var(--ok);box-shadow:inset 0 0 0 4px var(--card)}
+.it.done .tt{text-decoration:line-through;color:var(--mut)}
+.grid{display:grid;gap:10px;grid-template-columns:repeat(auto-fill,minmax(260px,1fr))}
+.trip{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:16px}
+.trip h3{margin:0 0 8px;font-size:24px}
+.trip label{display:block;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:-1px;color:var(--mut);margin:10px 0 3px}
+.trip input,.trip textarea,.add input{width:100%;font:inherit;font-size:13px;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:8px 12px;resize:vertical}.add input{border-radius:99px;background:var(--card);padding:10px 18px}
+.trip textarea{min-height:40px}
+.row{display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+.del{margin-left:auto;border:0;background:none;color:var(--mut);font:inherit;font-size:11px;cursor:pointer}
+.add{display:flex;gap:8px;margin-bottom:14px}.add button,.btn{border:1px solid #262626;background:var(--tc);color:#262626;font:inherit;font-weight:600;border-radius:99px;padding:8px 16px;cursor:pointer;white-space:nowrap}
+.card{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:18px}
+.card h3{margin:0 0 8px;font-size:23px}.card p{margin:4px 0}
+.card a{color:var(--ac)}
+.kv{display:flex;justify-content:space-between;gap:12px;padding:6px 0;border-top:1px solid var(--line);font-size:13px}.kv:first-of-type{border:0}.kv span:first-child{color:var(--mut)}.kv span:last-child{text-align:right}
+.note{font-size:11px;color:var(--mut);margin-top:22px}
+.st{display:inline-block;background:var(--blue);color:#262626;font:500 10px/1.3 "DM Mono",monospace;letter-spacing:-1px;text-transform:uppercase;padding:6px 12px;border:1px solid #262626;transform:rotate(-3deg)}
+.fl{position:absolute;font-size:33px;pointer-events:none}
+.mq{background:var(--tc);transition:background .3s;color:#262626;margin:0 -16px;overflow:hidden;white-space:nowrap;border-top:1px solid #262626;border-bottom:1px solid #262626}.mqi{display:inline-block;padding:4px 0;font:500 10px "DM Mono",monospace;letter-spacing:-1px;animation:mq 40s linear infinite}@keyframes mq{to{transform:translateX(-50%)}}@media(prefers-reduced-motion:reduce){.mqi{animation:none}}
+.grid>.trip:nth-child(3n+1){border-top:6px solid var(--pink)}.grid>.trip:nth-child(3n+2){border-top:6px solid var(--blue)}.grid>.trip:nth-child(3n+3){border-top:6px solid var(--green)}
+.empty{color:var(--mut);padding:24px 0;text-align:center}
+#app{display:flex;flex-wrap:wrap;gap:10px}#app>*{flex:1 1 100%}#app>.it,#app>.card{flex:1 1 calc(50% - 10px);min-width:260px;margin:0}#app>h2{margin:18px 0 0}
+.it.pc{flex-direction:column;gap:0;padding:0;overflow:hidden;color:#262626;background:#fff;border:1px solid #cfcfd4}.dtop{padding:18px 16px 16px;text-align:center;font:400 25px/1.1 "DM Serif Display",Georgia,serif;letter-spacing:-.01em}.it.pc .bd{flex:1;padding:16px 16px 18px;text-align:center}.it.pc .mt{color:rgba(38,38,38,.72)}.it.pc .tag,.it.pc .tag.w2{background:rgba(255,255,255,.65);color:#262626;border:0}
+.lb{font:500 9px "DM Mono",monospace;letter-spacing:-1px;text-transform:uppercase;opacity:.7;margin-bottom:6px}
+.ft{display:flex;justify-content:center;margin-top:12px}.go{display:inline-flex;align-items:center;gap:7px;background:#fff;color:#262626;border:1px solid #262626;border-radius:99px;padding:6px 14px;font:500 11px "DM Sans",sans-serif;white-space:nowrap}.go::before{content:"";width:9px;height:9px;border-radius:50%;background:var(--tc)}
+.it.nx{background:var(--tc);color:#262626;border-color:#262626}.it.nx .mt,.it.nx .when{color:rgba(38,38,38,.7)}
+#app>.card{background:var(--card);color:var(--ink);border:1px solid var(--line)}#app>.card .kv{border-color:rgba(127,127,127,.35)}#app>.card .kv span:first-child,#app>.card .mt{color:inherit;opacity:.65}#app>.card a{color:inherit;text-decoration:underline}
+.star{border:0;background:none;font-size:23px;line-height:1;cursor:pointer;color:var(--mut);padding:0 4px}.star.on{color:#e0a800}.star svg{display:block;width:24px;height:24px}
+:root{--tc:var(--pink)}
+.cal{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;text-align:center}.cal span{font:500 10px "DM Mono",monospace;color:var(--mut)}.cal i{aspect-ratio:1}.cd2{position:relative;display:flex;align-items:center;justify-content:center;aspect-ratio:1;border:1px solid var(--line);border-radius:10px;background:var(--card);font-weight:500;font-size:13px}.cd2.has{background:var(--tc);color:#262626;border-color:var(--line)}.cd2.td{outline:1px solid var(--mut);outline-offset:1px}.cd2 em{position:absolute;top:2px;right:5px;font:500 8px "DM Mono",monospace;font-style:normal}.calh{display:flex;align-items:center;justify-content:space-between;gap:8px}.calh h2{margin:0;font-size:25px}.calh .chip{font-size:17px;padding:4px 14px}
+.ov{position:fixed;inset:0;z-index:50;background:rgba(0,0,0,.5);display:flex;overflow:auto;padding:16px 12px 16px}.md{width:100%;max-width:560px;margin:auto;border:1px solid var(--ink)}.md textarea{min-height:64px}
+.pk{width:100%;text-align:left;font:inherit;font-size:13px;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:10px 12px;cursor:pointer}.pkc{border:1px solid var(--ink);border-radius:14px;padding:12px;margin-top:8px;background:var(--card)}.pkc .calh{margin-bottom:8px}.pkc .calh b{font:400 19px "DM Serif Display",Georgia,serif}.pkc .cal{gap:4px 0}.pd{aspect-ratio:1;border:0;background:none;color:var(--ink);font:500 13px "DM Sans",sans-serif;border-radius:50%;cursor:pointer;padding:0}.pd.mid{background:var(--tc);color:#262626;border-radius:0}.pd.sel{background:var(--ink);color:var(--bg)}
+.seg{display:flex;border:1px solid var(--ink);border-radius:99px;overflow:hidden;margin-bottom:6px}.seg button{flex:1;border:0;background:var(--card);color:var(--ink);font:600 12px "DM Sans",sans-serif;padding:10px 4px;cursor:pointer}.seg button+button{border-left:1px solid var(--ink)}.seg button.on{background:var(--tc);color:#262626}.tg{display:grid;grid-template-columns:1fr 120px;gap:8px}
+.att{display:flex;gap:10px;flex-wrap:wrap}.at{position:relative;width:84px;text-align:center;cursor:pointer}.at img{width:84px;height:84px;object-fit:cover;border-radius:10px;border:1px solid var(--line);display:block}.at span{display:flex;align-items:center;justify-content:center;width:84px;height:84px;font-size:31px;border:1px solid var(--line);border-radius:10px;background:var(--bg)}.at small{display:block;font-size:10px;color:var(--mut);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.at button{position:absolute;top:-6px;right:-6px;width:22px;height:22px;border-radius:50%;border:1px solid var(--ink);background:var(--card);color:var(--ink);padding:0;line-height:1;cursor:pointer}:root[data-tab="t"]{--tc:var(--blue)}:root[data-tab="v"]{--tc:#fbe38a}:root[data-tab="b"]{--tc:var(--green)}:root[data-tab="i"]{--tc:#d8cdf4}
+.it.pc{position:relative}.pc .star{position:absolute;top:8px;right:8px;color:#262626;opacity:.5}.pc .star.on{opacity:1;color:#e0a800}
+.cb{background:var(--pink);color:#262626;border:1px solid #262626;border-radius:14px;padding:10px 14px;font-size:12px}
+.flt{display:flex;gap:8px;flex-wrap:wrap;margin:16px 0 12px}.flt input,.flt select{font:inherit;font-size:13px;color:var(--ink);background:var(--card);border:1px solid var(--line);border-radius:99px;padding:8px 14px;width:100%;min-width:0}.flt select{flex:1 1 140px;width:auto;-webkit-appearance:none;appearance:none;padding-right:38px;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 8'%3E%3Cpath d='M1.5 1.5l4.5 4.5 4.5-4.5' fill='none' stroke='%236d6d72' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 16px center;background-size:12px 8px}
+.sum{display:flex;gap:8px}.sum div{flex:1;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:10px;text-align:center}.sum b{display:block;font:400 21px "DM Serif Display",serif}
+.bf{flex-wrap:wrap}.bf input{flex:1 1 120px;width:auto}
+.w{max-width:480px;margin:0 auto;padding:0 16px 40px}
+.top{position:sticky;top:0;z-index:7;height:52px;display:flex;align-items:center;justify-content:space-between;margin:0 -16px;padding:0 16px;background:var(--bg);border-bottom:1px solid var(--line)}
+.logo{font:400 25px/1 "DM Serif Display",Georgia,serif;letter-spacing:-.02em;background:none;border:0;color:var(--ink);padding:0;cursor:pointer}
+.sw{position:relative;display:flex;align-items:center;justify-content:space-between;width:66px;height:32px;padding:0 8px;border:1px solid var(--ink);border-radius:99px;background:var(--card);cursor:pointer;font-size:13px}
+.sw i{position:absolute;top:3px;left:3px;width:24px;height:24px;border-radius:50%;background:var(--tc);transition:transform .2s}
+.sw span{position:absolute;top:3px;width:24px;height:24px;display:flex;align-items:center;justify-content:center;z-index:1}.sw .sun{left:3px;color:#262626}.sw .moon{right:3px;color:var(--mut)}.sw svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+:root[data-theme="dark"] .sw .sun{color:var(--mut)}:root[data-theme="dark"] .sw .moon{color:#262626}
+:root[data-theme="dark"] .sw i{transform:translateX(34px)}
+header{position:relative;text-align:center;margin:0 -16px;padding:28px 16px;background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);background-size:26px 26px}
+nav{display:flex;gap:6px;overflow-x:auto;padding:8px 0;position:sticky;top:52px;z-index:6;background:var(--bg);scrollbar-width:none}
+nav::-webkit-scrollbar{display:none}
+nav button{flex:none;display:flex;align-items:center;gap:6px;border:1px solid var(--line);background:var(--bg);color:var(--ink);font:500 11px "DM Mono",monospace;text-transform:uppercase;padding:9px 13px;border-radius:99px;cursor:pointer}
+nav button .ic{display:none}
+nav button.on{background:var(--tc);color:#262626;border-color:#262626}
+body:not(.home) header,body:not(.home) .mq{display:none}
+body.home .w{min-height:100dvh;display:flex;flex-direction:column}
+body.home .w{padding-bottom:0}
+body.home header{flex:1;display:flex;flex-direction:column;justify-content:center;align-items:center}
+body.home #app,body.home .note{display:none}
+body{letter-spacing:-1px}button,input,select,textarea{letter-spacing:inherit}
+*{transition:background-color .25s ease,color .25s ease,border-color .25s ease,opacity .25s ease,transform .25s ease,box-shadow .25s ease,fill .25s ease,stroke .25s ease}
+html{scroll-behavior:smooth}
+button:not(.pd):active{transform:scale(.97)}
+@keyframes fi{from{opacity:0;transform:translateY(8px)}}
+#app.fx>*{animation:fi .35s ease both}
+nav{padding-bottom:14px}#app{padding-top:14px}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}#app.fx>*{animation:none}html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<div class="w">
+<div class="top"><button class="logo" data-a="tab" data-k="h" aria-label="Inicio">intercambio.</button><button class="sw" data-a="theme" role="switch" aria-checked="false" aria-label="Modo oscuro"><i></i><span class="sun"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg></span><span class="moon"><svg viewBox="0 0 24 24"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></span></button></div>
+<nav id="nav"></nav>
+<header>
+  <div><span class="fl" style="top:14px;left:7%;transform:rotate(-12deg)">🍝</span><span class="fl" style="top:10px;right:7%;transform:rotate(14deg)">✈️</span><span class="fl" style="bottom:8px;left:6%;transform:rotate(10deg)">🪩</span><span class="fl" style="bottom:10px;right:6%;transform:rotate(-10deg)">🇮🇹</span><div class="st">Intercambio 2027 · Milán · Bocconi</div><h1><mark>el intercambio</mark><br>en Milán, todo<br>en un solo lugar.</h1></div>
+  <div class="cd" id="cd"></div>
+</header>
+<div class="mq"><div class="mqi"><span>TODO EL INTERCAMBIO A MANO &nbsp;|&nbsp; MILÁN 2027 &nbsp;|&nbsp; EVENTOS · TRÁMITES · VIAJES &nbsp;|&nbsp; TODO EL INTERCAMBIO A MANO &nbsp;|&nbsp; MILÁN 2027 &nbsp;|&nbsp; EVENTOS · TRÁMITES · VIAJES &nbsp;|&nbsp; </span><span>TODO EL INTERCAMBIO A MANO &nbsp;|&nbsp; MILÁN 2027 &nbsp;|&nbsp; EVENTOS · TRÁMITES · VIAJES &nbsp;|&nbsp; TODO EL INTERCAMBIO A MANO &nbsp;|&nbsp; MILÁN 2027 &nbsp;|&nbsp; EVENTOS · TRÁMITES · VIAJES &nbsp;|&nbsp; </span></div></div>
+<main id="app"></main>
+<p class="note" id="foot"></p>
+<p class="note"><a href="https://app.notion.com/p/3878d2213b0e803a983cca5e4a04fb1e" target="_blank" rel="noopener" style="color:inherit">Abrir Notion ↗</a></p>
+</div>
+<script>
+const MS=['ene','feb','mar','abr','may','jun','jul','ago','sep','oct','nov','dic'],DS=['dom','lun','mar','mié','jue','vie','sáb'];
+const pd=s=>new Date(s+'T12:00:00'),D=s=>s.length<6?'2027-'+s:s;
+const fd=s=>{const d=pd(s);return DS[d.getDay()]+' '+d.getDate()+' '+MS[d.getMonth()]};
+const fr=(a,b)=>a===b?fd(a):fd(a)+' → '+fd(b);
+const n0=new Date(),today=n0.getFullYear()+'-'+String(n0.getMonth()+1).padStart(2,'0')+'-'+String(n0.getDate()).padStart(2,'0');
+const dd=s=>Math.round((pd(s)-pd(today))/864e5);
+const when=(a,b)=>b<today?'ya pasó':a<=today?'en curso':dd(a)===1?'mañana':'en '+dd(a)+' días';
+const h=s=>String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const TY={f:['Fiestas y eventos','#f9bcd1'],c:['Conciertos','#b7dde6'],h:['Feriados','#b9d48f'],p:['Estrenos','#fbf1dc'],v:['Visitas','#fde3ec']};
+const ev=[];
+const E=(t,n,a,b,c,v,note,st)=>ev.push({t,n,a:D(a),b:D(b||a),c:c||'',v:v||'',note:note||'',st:st||''});
+const K=(art,rows)=>rows.forEach(r=>E('c',art+' · '+r[0],r[2],r[3],r[0],r[1],r[4]));
+E('f','Carnaval de Venecia','01-30','02-09','Venecia','','Gratis en la calle. Finde 30–31 ene justo después del check-in.');
+E('f','Berlinale','02-10','02-21','Berlín','','Alfombra roja todas las noches. Premios vie 19; 20 y 21 son días de público.');
+E('f','Carnaval ambrosiano','02-13','','Milán','','Desfile y carrozas.');
+E('f','Festival de Sanremo','02-16','02-20','Sanremo','','Final sáb 20.');
+E('f','Premios BAFTA','02-21','','Londres','','Alfombra roja. Combina con Charli en Londres (vie 19).');
+E('v','Visita de la mamá de Tizi','02-21','03-06','','','Viaja del domingo 21/2 al sábado 6/3.');
+E('f','Milan Fashion Week (fecha estimada)','02-23','03-01','Milán','','Sin fecha oficial todavía; suele ser la última semana de febrero.','A confirmar');
+E('f','Paris Fashion Week (fecha estimada)','03-01','03-09','París','','Sin fecha oficial todavía; suele ser fines de feb / principios de marzo.','A confirmar');
+E('f','Las Fallas','03-15','03-19','Valencia','','Justo antes de los parciales.');
+E('f','St. Patrick’s Day','03-17','','Dublín');
+E('f','Semana Santa','03-21','03-28','Sevilla','','Procesiones más fuertes jue 25 y vie 26.');
+E('f','Pascua en el Vaticano','03-28','','Roma','','Misa papal. Cae en el Easter Break.');
+E('f','Milan Design Week / Salone del Mobile','04-13','04-18','Milán','','Eventos de marcas por toda la ciudad, muchos abiertos.');
+E('f','Sant Jordi','04-23','','Barcelona','','Libros y rosas por toda la ciudad.');
+E('f','King’s Day','04-27','','Ámsterdam','','Ciudad de naranja, fiesta en los canales.');
+E('f','Festival de Cannes (80ª edición)','05-11','05-22','Cannes','','Alfombra roja desde las vallas. Cierre sáb 22 + Gracie en Milán dom 23.');
+E('f','Eurovision','05-11','05-15','Burgas','','Final sáb 15.');
+E('f','Roland Garros','05-17','06-06','París','','Clasificación 17–21 may (entradas más baratas). Combina con sombr en París sáb 22.');
+E('f','Primavera Sound','06-03','06-05','Barcelona','','25ª edición. Line-up sin anunciar.');
+E('f','GP de Mónaco (F1)','06-04','06-06','Mónaco');
+E('f','Final de la Champions','06-05','','Madrid','Metropolitano');
+E('h','Pasquetta (lunes de Pascua)','03-29','','','','Cae dentro del Easter Break.');
+E('h','Liberazione','04-25','','','','Cae domingo, no suma día.');
+E('h','Día del Trabajador','05-01','','','','Cae sábado, no suma día.');
+E('h','Festa della Repubblica','06-02');
+E('p','The Legend of Zelda','05-07','','','','Fecha de estreno en EE. UU. La premiere europea suele ser en Londres 1–2 semanas antes.','A confirmar');
+E('p','Bad Fairies','05-21','','','','Con Cynthia Erivo. Estreno en EE. UU.','A confirmar');
+E('p','Star Wars: Starfighter','05-28','','','','Con Ryan Gosling. Estreno en EE. UU.','A confirmar');
+E('p','Spider-Man: Beyond the Spider-Verse','06-04','','','','Estreno en EE. UU.','A confirmar');
+K('Charli XCX',[['Dublín','3Arena','02-13'],['Glasgow','OVO Hydro','02-15'],['Manchester','Co-op Live','02-17'],['Londres','The O2','02-19','','Combo con BAFTA (dom 21).'],['Ámsterdam','Ziggo Dome','02-22'],['París','Accor Arena','02-24']]);
+K('Olivia Rodrigo',[['Estocolmo','Avicii Arena','03-19','03-20','Cae en parciales.'],['Ámsterdam','Ziggo Dome','03-23','03-24','Cae en parciales.'],['Ámsterdam','Ziggo Dome','03-27','03-28','⭐ Cae en el Easter Break.'],['Múnich','Olympiahalle','04-01','04-02','Cae en parciales.'],['Londres','The O2','04-05','04-06'],['Londres','The O2','04-08','04-09','Mismos días que Gracie en París.'],['Londres','The O2','04-12'],['Londres','The O2','04-14','04-15'],['Londres','The O2','04-19','04-20'],['París','Paris La Défense Arena','04-23','04-24'],['Milán','Unipol Dome','04-27','04-28','🏠 En casa.'],['Barcelona','Palau Sant Jordi','05-01','05-02'],['Barcelona','Palau Sant Jordi','05-05','05-06'],['Londres','The O2','05-09','05-10','⭐⭐ Combo con Gracie en Ámsterdam (vie 7 / sáb 8).']]);
+K('Gracie Abrams',[['París','Accor Arena','04-08','04-09'],['París','Accor Arena','04-12'],['Amberes','AFAS Dome','04-15','04-16'],['Dublín','3Arena','04-19','04-20'],['Manchester','Co-op Live','04-22'],['Manchester','Co-op Live','04-24','04-25'],['Glasgow','OVO Hydro','04-27','04-28'],['Londres','The O2','04-30','05-01'],['Londres','The O2','05-03','05-04'],['Ámsterdam','Ziggo Dome','05-07','05-08','⭐⭐ Combo con Olivia en Londres (dom 9).'],['Ámsterdam','Ziggo Dome','05-10'],['Berlín','Uber Arena','05-12','05-13'],['Estocolmo','Avicii Arena','05-18','05-19','Cae en finales.'],['Milán','Unipol Dome','05-23','05-24','🏠 En casa, en época de finales.'],['Barcelona','Palau Sant Jordi','05-27','05-28','Cae en finales.']]);
+K('sombr',[['Oslo','Unity Arena','05-05','','Fecha a confirmar: otra fuente dice 8 de mayo.'],['Estocolmo','Avicii Arena','05-09'],['Helsinki','Veikkaus Arena','05-11'],['Copenhague','Royal Arena','05-13'],['Hamburgo','Barclays Arena','05-14'],['Amberes','AFAS Dome','05-16'],['Berlín','Uber Arena','05-18'],['Praga','O2 Arena','05-19'],['París','Accor Arena','05-22','','Combo con Roland Garros (dom 23).'],['Colonia','Lanxess Arena','05-23','05-24'],['Zúrich','Hallenstadion','05-27'],['Múnich','Olympiahalle','05-28'],['Viena','Wiener Stadthalle','05-29'],['Ámsterdam','Ziggo Dome','05-31','06-01']]);
+K('Vasco Rossi',[['Roma','Estadio Olímpico','06-06','06-07','Estadio al aire libre: ideal para escuchar desde afuera. Hay más fechas (10, 11 jun y siguientes).']]);
+ev.find(e=>e.n.includes('Oslo')).st='A confirmar';
+const TR=[
+['t1','Application online Bocconi','2026-09-30','2026-10-22','Abrió el 30/9 y cerró el 22/10 a las 15 h (hora italiana). CV, analítico, foto carnet y pasaporte/DNI UE.'],
+['t2','Abre la postulación al housing de Bocconi','2026-10-27','','Por orden de llegada y con cupos limitados: postularse apenas abra.'],
+['t3','Selección de materias','2027-01-12','2027-01-15','Por orden de llegada: llevar opciones de backup.'],
+['t4','Welcome week + check-in obligatorio','2027-01-25','2027-01-29','Límite para el check-in: 29/1.'],
+['t5','Welcome Orientation','2027-01-29'],
+['t6','Inicio de clases','2027-02-03'],
+['t7','Add/Drop de materias','2027-02-10','2027-02-18','Después no se puede cambiar nada.'],
+['t8','Mid-term session','2027-03-18','2027-04-03','Parciales del 31/3 al 3/4. Easter Break libre del 27 al 30/3.'],
+['t9','Fin de clases','2027-05-15'],
+['t10','Exámenes finales (primera fecha)','2027-05-17','2027-05-31'],
+['t11','Fecha más temprana de salida','2027-06-01'],
+['t12','Segundos finales','2027-06-03','2027-07-10','Solo si hay que recuperar.']];
+const PEN=[['p1','Contratar seguro médico (febrero a junio)'],['p2','Buscar becas y financiamiento'],['p3','Validar equivalencias con la directora'],['p4','Llegar a nivel A2 de italiano antes de enero']];
+const ls=(k,d)=>{try{return JSON.parse(localStorage.getItem(k))||d}catch(e){return d}},sv=(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}};
+let fx=false,lb='',attMsg='',FL=ls('F',{}),dop=false,dm='2027-02',ed=null,dr={},vm='l',cm=today.slice(0,7),tab='h',fil='all',who='all',T=ls('T',[]),checks=ls('ck',{}),col=null,cref=null,live=false,pend=null,q='',city='all';
+const hs=s=>{let x=0;for(const c of s)x=(x*31+c.charCodeAt(0))|0;return 'f'+(x>>>0).toString(36)};
+const SS=on=>`<svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" fill="${on?'currentColor':'none'}"><path d="M12 3.5l2.5 5.4 5.9.7-4.3 4.1 1.1 5.9-5.2-2.9-5.2 2.9 1.1-5.9-4.3-4.1 5.9-.7z"/></svg>`,eid=e=>hs(e.n+e.a),isF=e=>!!checks[eid(e)];
+const ex=e=>(e.a<='2027-04-03'&&e.b>='2027-03-31')||(e.a<='2027-05-31'&&e.b>='2027-05-17');
+function setCk(k,v){checks[k]=v;sv('ck',checks);if(cref)cref.update({[k]:v}).catch(()=>cref.set(checks).catch(()=>{}))}
+const bud=()=>{try{return JSON.parse(checks.bud||'[]')}catch(e){return[]}};
+const TABS=[['e','Eventos','🪩'],['t','Trámites','📋'],['v','Viajes','✈️'],['b','Presupuesto','💶'],['i','Info','ℹ️']],TC={e:'#f9bcd1',t:'#b7dde6',v:'#fbe38a',b:'#b9d48f',i:'#d8cdf4'};
+function evItem(e){const [lb,co]=TY[e.t];const w=when(e.a,e.b);
+return `<div class="it pc"><button class="star ${isF(e)?'on':''}" data-a="fav" data-k="${eid(e)}" aria-label="Favorito">${SS(isF(e))}</button><div class="dtop">${h(fr(e.a,e.b))}</div><div class="bd" style="background:${co}"><div class="lb">${lb}</div><div class="tt">${h(e.n)}</div><div class="mt">${[e.c&&e.t!=='c'?e.c:'',e.v].filter(Boolean).map(h).join(' · ')}</div>${e.note?`<div class="mt">${h(e.note)}</div>`:''}${e.st?`<span class="tag w2">${h(e.st)}</span>`:''}${(ex(e)&&!'hv'.includes(e.t))||/parciales|finales/.test(e.note)?'<span class="tag w2">choca con la facu</span>':''}<div class="ft"><span class="go">${w}</span></div></div></div>`}
+function vEv(){const list=ev.filter(e=>e.b>=today&&(fil==='all'||(fil==='fav'?isF(e):fil==='conf'?!!e.st:e.t===fil))&&(city==='all'||e.c===city)&&(!q||(e.n+' '+e.c+' '+e.v).toLowerCase().includes(q.toLowerCase()))).sort((x,y)=>x.a.localeCompare(y.a)||x.n.localeCompare(y.n));
+let out=`<div class="chips">${[['all','Todo'],['fav','⭐ Favoritos'],['conf','A confirmar'],...Object.entries(TY).filter(([k])=>k!=='v').map(([k,v])=>[k,v[0]])].map(([k,l])=>`<button class="chip ${fil===k?'on':''}" data-a="fil" data-k="${k}">${l}</button>`).join('')}</div>`;
+const cities=[...new Set(ev.map(e=>e.c).filter(Boolean))].sort();
+out+=`<div class="flt"><select data-s="city" aria-label="Ciudad"><option value="all">Todas las ciudades</option>${cities.map(c=>`<option ${city===c?'selected':''}>${h(c)}</option>`).join('')}</select><div class="srch" style="flex:1 1 160px"><input data-s="q" value="${h(q)}" placeholder="Buscar artista o evento" aria-label="Buscar"></div></div>`;
+if(fil==='fav'){const fs=list.filter(isF);fs.forEach((x,i)=>fs.slice(i+1).forEach(y=>{const g=Math.abs(pd(x.a)-pd(y.a))/864e5;if(x.c&&y.c&&x.c!==y.c&&g<=2)out+=`<div class="cb">${g?'✈️ Combo posible':'⚠️ Mismo día'}: ${h(x.n)} (${h(x.c)}) + ${h(y.n)} (${h(y.c)})</div>`}))}
+if(!list.length)return out+'<div class="empty">No hay nada con ese filtro. Tocá ☆ en un evento para guardarlo.</div>';
+let m='';list.forEach(e=>{const k=e.a.slice(0,7);if(k!==m){m=k;const d=pd(e.a);out+=`<h2>${['enero','febrero','marzo','abril','mayo','junio','julio'][d.getMonth()]||MS[d.getMonth()]} ${d.getFullYear()}</h2>`}out+=evItem(e)});return out}
+function trItem(t,nx){const [id,n,a,b,note]=t,e=b||a,done=checks[id]||e<today;
+return `<div class="it ${e<today?'past':''} ${checks[id]?'done':''} ${nx?'nx':''}"><input type="checkbox" class="ck" data-a="ck" data-k="${id}" ${checks[id]?'checked':''} aria-label="Hecho"><div class="bd"><div class="tt">${h(n)}</div><div class="mt">${h(fr(a,e))}</div>${note?`<div class="mt">${h(note)}</div>`:''}</div><div class="when">${when(a,e)}</div></div>`}
+function vTr(){return `<div class="flt"><select data-s="vm" aria-label="Vista"><option value="l" ${vm==='l'?'selected':''}>LISTA</option><option value="c" ${vm==='c'?'selected':''}>CALENDARIO</option></select></div>`+(vm==='c'?vCal():vTrL())}
+function vCal(){const [Y,M]=cm.split('-').map(Number),nd=new Date(Y,M,0).getDate(),off=(new Date(Y,M-1,1).getDay()+6)%7,key=d=>cm+'-'+String(d).padStart(2,'0'),MF=['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
+let cells='';for(let i=0;i<off;i++)cells+='<i></i>';
+for(let d=1;d<=nd;d++){const k=key(d),n=TR.filter(t=>t[2]<=k&&k<=(t[3]||t[2])).length;cells+=`<b class="cd2 ${k===today?'td':''} ${n?'has':''}">${d}${n?`<em>${n}</em>`:''}</b>`}
+const L=TR.filter(t=>t[2].slice(0,7)<=cm&&(t[3]||t[2]).slice(0,7)>=cm);
+return `<div class="calh"><button class="chip" data-a="cm" data-k="-1" aria-label="Mes anterior">‹</button><h2>${MF[M-1]} ${Y}</h2><button class="chip" data-a="cm" data-k="1" aria-label="Mes siguiente">›</button></div><div class="cal">${['L','M','M','J','V','S','D'].map(x=>`<span>${x}</span>`).join('')}${cells}</div>${L.map(t=>trItem(t)).join('')||'<div class="empty">Sin trámites este mes.</div>'}`}
+function vTrL(){const up=TR.filter(t=>(t[3]||t[2])>=today),pa=TR.filter(t=>(t[3]||t[2])<today);
+return `<h2>Próximos</h2>${up.map((t,i)=>trItem(t,i===0)).join('')||'<div class="empty">Nada pendiente.</div>'}<h2>Sin fecha todavía</h2>${PEN.map(p=>`<div class="it ${checks[p[0]]?'done':''}"><input type="checkbox" class="ck" data-a="ck" data-k="${p[0]}" ${checks[p[0]]?'checked':''} aria-label="Hecho"><div class="bd"><div class="tt">${h(p[1])}</div></div></div>`).join('')}<h2>Ya pasaron</h2>${pa.map(t=>trItem(t)).join('')}`}
+const F=[['dates','Fechas'],['transport','Transporte'],['tickets','Tickets'],['lodging','Alojamiento'],['tips','Tips del lugar']];
+function vVi(){const L=T.filter(t=>who==='all'||(who==='fav'?t.fav:(t.who||[]).includes(who)));
+return `<div class="add"><input id="nn" placeholder="Nuevo destino (ej. Lisboa)" aria-label="Nuevo destino"><button data-a="add">Agregar</button></div><div class="chips">${['all','fav','Tizi','Oli'].map(k=>`<button class="chip ${who===k?'on':''}" data-a="who" data-k="${k}">${k==='all'?'Todos':k==='fav'?'⭐ Favoritos':k}</button>`).join('')}</div><div class="grid">${L.map(t=>`<div class="trip" data-id="${h(t.id)}"><div class="row" style="flex-wrap:nowrap;margin-bottom:8px"><h3 style="margin:0">${h(t.name)}</h3><button class="star ${t.fav?'on':''}" data-a="tf" aria-label="Favorito">${SS(t.fav)}</button></div>${t.multi&&(t.dests||[]).length?`<div class="mt" style="margin:-2px 0 4px">${h(t.dests.join(' → '))}</div>`:''}${cs(t).length?`<div class="mt" style="margin:-2px 0 8px">${cs(t).map(c=>flag(c)+' '+h(PA[c]||'')).join(' · ')}</div>`:''}<div class="row">${(t.who||[]).map(p=>`<span class="tag">${h(p)}</span>`).join('')}${t.clima?`<span class="tag">${h(t.clima)}</span>`:''}<button class="del" data-a="te">Editar</button><button class="del" style="margin-left:8px" data-a="del">${pend===t.id?'¿Seguro? Tocá de nuevo':'Borrar'}</button></div>${F.filter(([k])=>t[k]).map(([k,l])=>`<label>${l}</label><div style="white-space:pre-wrap;font-size:13px">${h(t[k])}</div>`).join('')}${vLink(t)}${vAttV(t.id)}</div>`).join('')||'<div class="empty">Todavía no hay viajes guardados.</div>'}</div>${vModal()}${lb?`<div class="ov" data-a="lx"><img src="${lb}" alt="" style="max-width:100%;max-height:100%;margin:auto;border-radius:12px"></div>`:''}`}
+function vIn(){return `<div class="card"><h3>✈️ Vuelo</h3><div class="kv"><span>Ida</span><span>mar 26/01/2027 · EZE 22:25 → Milán Linate, llega mié 27/01 19:10</span></div><div class="kv"><span>Vuelta</span><span>vie 04/06/2027 · LIN 08:00 → EZE 22:50</span></div><div class="kv"><span>Aerolínea</span><span>ITA Airways · 1 escala en ambos tramos</span></div></div>
+<div class="card"><h3>🏠 Depto en Milán</h3><div class="kv"><span>Dónde</span><span>1 ambiente en Lodi-Corvetto, con Oli</span></div><div class="kv"><span>Entrada / salida</span><span>27/01/2027 → 04/06/2027</span></div><div class="kv"><span>Spotahome</span><span><a href="https://www.spotahome.com/milan/for-rent:apartments/1190098" target="_blank" rel="noopener">ref. 1190098</a></span></div></div>
+<div class="card"><h3>🎓 Bocconi</h3><div class="kv"><span>Check-in</span><span>25 al 29/01 (límite 29/1)</span></div><div class="kv"><span>Clases</span><span>3/02 → 15/05</span></div><div class="kv"><span>Easter Break</span><span>27 al 30/03 (lun 29 es Pasquetta)</span></div><div class="kv"><span>Finales</span><span>17 → 31/05</span></div><p class="mt">Plan: cursar al menos 2 materias curriculares pendientes de UADE, con equivalencias de 6 ECTS y al menos 60% de contenido en común.</p></div>
+<div class="card"><h3>👥 Visitas confirmadas</h3><div class="kv"><span>Mamá de Tizi</span><span>Viaja del domingo 21 de febrero al sábado 6 de marzo.</span></div></div>
+<div class="card"><h3>📱 Instalar en el celu</h3><p>iPhone: Compartir → Agregar a inicio. Android: ⋮ → Agregar a pantalla principal.</p></div>
+<div class="card"><h3>🔗 Links</h3><p><a href="https://app.notion.com/p/3878d2213b0e803a983cca5e4a04fb1e" target="_blank" rel="noopener">Notion · ⭐ 2027</a></p></div>`}
+const PA={IT:'Italia',FR:'Francia',ES:'España',PT:'Portugal',DE:'Alemania',GB:'Reino Unido',IE:'Irlanda',NL:'Países Bajos',BE:'Bélgica',CH:'Suiza',AT:'Austria',CZ:'Chequia',HU:'Hungría',PL:'Polonia',GR:'Grecia',HR:'Croacia',DK:'Dinamarca',SE:'Suecia',NO:'Noruega',FI:'Finlandia',IS:'Islandia',MC:'Mónaco',VA:'Vaticano',MT:'Malta',TR:'Turquía',MA:'Marruecos',AR:'Argentina',US:'Estados Unidos'};
+const CI={IT:'roma milan venecia florencia napoles sanremo bolonia turin verona como capri positano amalfi cinque sicilia palermo pisa genova bergamo',FR:'paris lyon niza nice marsella cannes burdeos',ES:'barcelona madrid sevilla valencia ibiza mallorca granada bilbao malaga',PT:'lisboa oporto porto',DE:'berlin munich hamburgo colonia frankfurt',GB:'londres london edimburgo glasgow manchester liverpool',IE:'dublin',NL:'amsterdam rotterdam',BE:'bruselas brujas amberes',CH:'zurich ginebra',AT:'viena salzburgo',CZ:'praga',HU:'budapest',PL:'varsovia cracovia',GR:'atenas santorini',HR:'dubrovnik split zagreb',DK:'copenhague',SE:'estocolmo',NO:'oslo',FI:'helsinki',IS:'reikiavik',MC:'monaco',TR:'estambul'};
+const guess=n=>{const s=String(n||'').normalize('NFD').replace(/[^\w\s]/g,'').toLowerCase();for(const c in CI)if(CI[c].split(' ').some(w=>s.includes(w)))return c;return ''},flag=c=>c?[...c].map(x=>String.fromCodePoint(127397+x.charCodeAt(0))).join(''):'',pc=t=>t.pais||guess(t.name);
+const cs=t=>t.multi?[...new Set((t.dests||[]).map(guess).filter(Boolean))]:(pc(t)?[pc(t)]:[]);
+const vDests=t=>`<label>Nombre del viaje</label><input data-d="name" value="${h(t.name)}" placeholder="Ej. Norte de Italia"><label>Ciudades (en orden)</label>${(t.dests||[]).map((c,i)=>`<div class="row" style="flex-wrap:nowrap;margin-bottom:6px"><input data-ds="${i}" value="${h(c)}" placeholder="Ciudad ${i+1}"><button type="button" class="star" data-a="dx" data-k="${i}" aria-label="Quitar ciudad" style="font-size:19px">×</button></div>`).join('')}<button type="button" class="pk" style="text-align:center" data-a="da">+ Agregar ciudad</button>`;
+const vLink=t=>t.link&&/^https?:\/\//i.test(t.link)?`<label>Link del alojamiento</label><a href="${h(t.link)}" target="_blank" rel="noopener" style="color:var(--ink);font-size:13px;word-break:break-all">${h(t.link.replace(/^https?:\/\/(www\.)?/i,'').slice(0,48))}</a>`:'';
+let th=ls('th',null)||(matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light');
+const setTheme=t=>{th=t;sv('th',t);document.documentElement.dataset.theme=t;const w=document.querySelector('.sw');if(w)w.setAttribute('aria-checked',t==='dark');const m=document.querySelector('meta[name=theme-color]');if(m)m.content=t==='dark'?'#101014':'#f9bcd1'};
+setTheme(th);
+const svF=()=>sv('F',FL);
+function vAtt(){const L=dr.files||[];return `<label>Adjuntos</label><div class="att">${L.map((f,i)=>`<div class="at">${f.t.startsWith('image')?`<img src="${f.d}" alt="">`:'<span>📄</span>'}<small>${h(f.n)}</small><button type="button" data-a="fx" data-k="${i}" aria-label="Quitar">×</button></div>`).join('')}</div>${attMsg?`<div class="mt">${h(attMsg)}</div>`:''}<button type="button" class="pk" style="text-align:center;margin-top:8px" data-a="fp">📎 Adjuntar foto o documento</button><input type="file" id="fi" data-fu="1" accept="image/*,application/pdf" multiple hidden>`}
+function vAttV(id){const L=FL[id]||[];return L.length?`<label>Adjuntos</label><div class="att">${L.map((f,i)=>`<div class="at" data-a="av" data-k="${i}">${f.t.startsWith('image')?`<img src="${f.d}" alt="">`:'<span>📄</span>'}<small>${h(f.n)}</small></div>`).join('')}</div>`:''}
+function addFiles(fs){[...fs].forEach(f=>{const r=new FileReader();r.onload=()=>{const ok=d=>{(dr.files=dr.files||[]).push({n:f.name,t:f.type||'',d});attMsg='';render(1)};
+if(f.type.startsWith('image')){const im=new Image();im.onload=()=>{const s=Math.min(1,1000/Math.max(im.width,im.height)),c=document.createElement('canvas');c.width=Math.round(im.width*s);c.height=Math.round(im.height*s);c.getContext('2d').drawImage(im,0,0,c.width,c.height);ok(c.toDataURL('image/jpeg',.7))};im.onerror=()=>{attMsg='No pude leer esa imagen.';render(1)};im.src=r.result}
+else if(f.size>900000){attMsg='El documento pesa demasiado (máximo 900 KB).';render(1)}else ok(r.result)};r.readAsDataURL(f)})}
+const trTxt=d=>{const f=(x,y,p)=>[x?fd(x):'',y,p].filter(Boolean).join(' '),m={tren:'Tren',bus:'Bus',avion:'Avión',otro:'Otro'}[d.tm]||'',s=f(d.sd,d.st,d.sp),a=f(d.ad,d.at,d.ap);return [m,s&&'Salida: '+s,a&&'Llegada: '+a].filter(Boolean).join(' · ')};
+function vTrans(t){const M=[['tren','🚆 Tren'],['bus','🚌 Bus'],['avion','✈️ Avión'],['otro','Otro']],blk=(t0,d,h0,p,ph)=>`<div class="lb" style="margin-top:14px">${t0}</div><div class="tg"><div><label>Fecha</label><input type="date" data-t="${d}" value="${h(t[d])}"></div><div><label>Hora</label><input type="time" data-t="${h0}" value="${h(t[h0])}"></div></div><label>Lugar</label><input data-t="${p}" value="${h(t[p])}" placeholder="${ph}">`;
+return `<div class="seg">${M.map(([k,l])=>`<button type="button" class="${t.tm===k?'on':''}" data-a="tm" data-k="${k}">${l}</button>`).join('')}</div>${t.transport&&!t.tm?`<div class="mt">Anterior: ${h(t.transport)}</div>`:''}${blk('Salida','sd','st','sp','Ej. Milano Centrale')}${blk('Llegada','ad','at','ap','Ej. Roma Termini')}`}
+function vPick(t){const a=t.d1,b=t.d2;let o=`<button type="button" class="pk" data-a="po">📅 ${t.dates?h(t.dates):'Elegí las fechas'}</button>`;
+if(dop){const [Y,M]=dm.split('-').map(Number),nd=new Date(Y,M,0).getDate(),off=(new Date(Y,M-1,1).getDay()+6)%7,MF=['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];let c='';for(let i=0;i<off;i++)c+='<i></i>';
+for(let d=1;d<=nd;d++){const k=dm+'-'+String(d).padStart(2,'0');c+=`<button type="button" class="pd ${k===a||k===b?'sel':''} ${a&&b&&k>a&&k<b?'mid':''}" data-a="pd" data-k="${k}">${d}</button>`}
+o+=`<div class="pkc"><div class="calh"><button type="button" class="chip" data-a="pm" data-k="-1" aria-label="Mes anterior">‹</button><b>${MF[M-1]} ${Y}</b><button type="button" class="chip" data-a="pm" data-k="1" aria-label="Mes siguiente">›</button></div><div class="cal">${['L','M','M','J','V','S','D'].map(x=>`<span>${x}</span>`).join('')}${c}</div><div class="mt" style="margin:8px 0">${a&&!b?'Ahora elegí la fecha de vuelta':'Elegí la fecha de ida y la de vuelta'}</div><div class="row"><button type="button" class="btn" data-a="pc">Listo</button><button type="button" class="del" data-a="px">Borrar fechas</button></div></div>`}
+return o}
+function vModal(){if(!ed)return'';const t=dr,w=t.who||[];return `<div class="ov"><div class="trip md"><h3>${ed==='new'?'Nuevo destino':'Editar viaje'}</h3><div class="seg"><button type="button" class="${!t.multi?'on':''}" data-a="mm" data-k="0">Un destino</button><button type="button" class="${t.multi?'on':''}" data-a="mm" data-k="1">Varios destinos</button></div>${t.multi?vDests(t):`<label>Destino</label><input data-d="name" value="${h(t.name)}"><label>País</label><div class="flt" style="margin:0"><select data-d="pais" aria-label="País"><option value="">Automático${guess(t.name)?` (${flag(guess(t.name))} ${PA[guess(t.name)]})`:''}</option>${Object.entries(PA).map(([c,n])=>`<option value="${c}" ${t.pais===c?'selected':''}>${flag(c)} ${n}</option>`).join('')}</select></div>`}<label>Quién va</label><div class="row">${['Tizi','Oli'].map(p=>`<button class="chip ${w.includes(p)?'on':''}" data-a="dw" data-k="${p}">${p}</button>`).join('')}</div><label>Clima</label><input data-d="clima" value="${h(t.clima)}">${F.map(([k,l])=>`<label>${l}</label>${k==='dates'?vPick(t):k==='transport'?vTrans(t):`<textarea data-d="${k}">${h(t[k])}</textarea>`}${k==='tickets'?vAtt():''}${k==='lodging'?`<label>Link del alojamiento</label><input data-d="link" type="url" inputmode="url" placeholder="https://…" value="${h(t.link)}">`:''}`).join('')}<div class="row" style="margin-top:16px"><button class="btn" data-a="ts">Guardar</button><button class="btn" style="background:var(--card);color:var(--ink)" data-a="tc">Cancelar</button></div></div></div>`}
+function vBu(){const L=bud(),tot=L.reduce((a,x)=>a+x.m,0),pg=L.filter(x=>x.p).reduce((a,x)=>a+x.m,0),f=n=>'€'+n.toLocaleString('es-AR',{maximumFractionDigits:0});
+return `<div class="sum"><div><b>${f(tot)}</b><span class="mt">Total</span></div><div><b>${f(pg)}</b><span class="mt">Pagado</span></div><div><b>${f(tot-pg)}</b><span class="mt">Pendiente</span></div></div><div class="add bf"><input id="bn" placeholder="Concepto (ej. entrada Olivia)" aria-label="Concepto"><input id="bm" type="number" inputmode="decimal" placeholder="€" aria-label="Monto"><button data-a="badd">Agregar</button></div>${L.map((x,i)=>`<div class="it ${x.p?'done':''}"><input type="checkbox" class="ck" data-a="bp" data-k="${i}" ${x.p?'checked':''} aria-label="Pagado"><div class="bd"><div class="tt">${h(x.n)}</div><div class="mt">${f(x.m)} · ${x.p?'pagado':'pendiente'}</div></div><button class="del" data-a="bd" data-k="${i}">Borrar</button></div>`).join('')||'<div class="empty">Sin gastos cargados: pasajes, entradas, seguro, alquiler…</div>'}`}
+function render(f){if(!f&&document.activeElement&&document.activeElement.closest('.trip,.add,.srch'))return;
+document.documentElement.dataset.tab=tab;document.getElementById('nav').innerHTML=TABS.map(([k,l,ic])=>`<button class="${tab===k?'on':''}" style="--c:${TC[k]}" data-a="tab" data-k="${k}"><span class="ic">${ic}</span><span>${l}</span></button>`).join('');document.body.classList.toggle('home',tab==='h');
+const ap=document.getElementById('app');ap.classList.remove('fx');if(fx){void ap.offsetWidth;ap.classList.add('fx');fx=false}ap.innerHTML=tab==='h'?'':{e:vEv,t:vTr,v:vVi,b:vBu,i:vIn}[tab]();try{const o=document.querySelector('nav .on');if(o&&tab!=='h')o.scrollIntoView({inline:'center',block:'nearest'})}catch(e){}
+const n=dd('2027-01-26');document.getElementById('cd').innerHTML=n>0?`<b>${n}</b><span>días para volar</span>`:`<b>${Math.max(1,-n+1)}</b><span>día en Milán</span>`;
+document.getElementById('foot').textContent=live?'Viajes y trámites tildados se guardan y se comparten con quien abra esta página.':'Modo local: lo que cargues se guarda en este teléfono (no se comparte).';}
+function patch(id,p){const t=T.find(x=>x.id===id);if(t)Object.assign(t,p);if(col)col.doc(id).update(p).catch(()=>{});else sv('T',T)}
+document.addEventListener('click',async ev=>{const b=ev.target.closest('[data-a]');if(!b)return;const a=b.dataset.a,k=b.dataset.k,id=(b.closest('.trip')||{dataset:{}}).dataset.id;
+if(a==='theme'){setTheme(th==='dark'?'light':'dark');return}if(a==='tab'){tab=k;fx=true;scrollTo(0,0)}else if(a==='fil'){fil=k}else if(a==='who'){who=k}
+else if(a==='ck'){setCk(k,b.checked)}
+else if(a==='cm'){const [y,m]=cm.split('-').map(Number),d=new Date(y,m-1+(+k),1);cm=d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')}
+else if(a==='fav'){setCk(k,!checks[k])}
+else if(a==='tf'){const t=T.find(x=>x.id===id);patch(id,{fav:!t.fav})}
+else if(a==='badd'){const n=document.getElementById('bn').value.trim(),m=parseFloat(document.getElementById('bm').value);if(!n||isNaN(m))return;setCk('bud',JSON.stringify([...bud(),{n,m,p:false}]))}
+else if(a==='bp'){const L=bud();L[k].p=b.checked;setCk('bud',JSON.stringify(L))}
+else if(a==='bd'){const L=bud();L.splice(+k,1);setCk('bud',JSON.stringify(L))}
+else if(a==='tw'){const t=T.find(x=>x.id===id),w=new Set(t.who||[]);w.has(k)?w.delete(k):w.add(k);patch(id,{who:[...w]})}
+else if(a==='del'){if(pend!==id){pend=id}else{pend=null;T=T.filter(x=>x.id!==id);if(col)col.doc(id).delete().catch(()=>{});else sv('T',T)}}
+else if(a==='add'){const v=document.getElementById('nn').value.trim();if(!v)return;ed='new';dop=false;dr={name:v,who:[],clima:'',dates:'',transport:'',tickets:'',lodging:'',tips:''}}
+else if(a==='te'){const t=T.find(x=>x.id===id);ed=id;dop=false;dr={...t,dests:[...(t.dests||[])],files:[...(FL[id]||[])]}}
+else if(a==='dw'){const w=new Set(dr.who||[]);w.has(k)?w.delete(k):w.add(k);dr.who=[...w]}
+else if(a==='po'){dop=!dop;if(dop)dm=(dr.d1||'2027-02-01').slice(0,7)}
+else if(a==='pm'){const [y,m]=dm.split('-').map(Number),d=new Date(y,m-1+(+k),1);dm=d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')}
+else if(a==='pd'){if(!dr.d1||dr.d2||k<dr.d1){dr.d1=k;dr.d2=''}else{dr.d2=k;dop=false}dr.dates=dr.d2?fr(dr.d1,dr.d2)+' '+dr.d2.slice(0,4):fd(dr.d1)+' '+dr.d1.slice(0,4)}
+else if(a==='pc'){dop=false}
+else if(a==='px'){dr.d1=dr.d2='';dr.dates=''}
+else if(a==='fp'){document.getElementById('fi').click();return}
+else if(a==='fx'){(dr.files||[]).splice(+k,1)}
+else if(a==='av'){const f=(FL[id]||[])[+k];if(f){if(f.t.startsWith('image'))lb=f.d;else{try{const p=f.d.split(','),bin=atob(p[1]),u=new Uint8Array(bin.length);for(let i=0;i<bin.length;i++)u[i]=bin.charCodeAt(i);window.open(URL.createObjectURL(new Blob([u],{type:f.t})),'_blank')}catch(e){}}}}
+else if(a==='lx'){lb=''}
+else if(a==='mm'){dr.multi=k==='1';if(dr.multi&&!(dr.dests||[]).length)dr.dests=[dr.name||'','']}
+else if(a==='da'){(dr.dests=dr.dests||[]).push('')}
+else if(a==='dx'){dr.dests.splice(+k,1)}
+else if(a==='tm'){dr.tm=dr.tm===k?'':k;dr.transport=trTxt(dr)}
+else if(a==='tc'){ed=null}
+else if(a==='ts'){if(dr.multi){dr.dests=(dr.dests||[]).map(x=>x.trim()).filter(Boolean);if(!(dr.name||'').trim())dr.name=dr.dests.join(' · ')}if(!(dr.name||'').trim())return;const {id:_i,files:fl,...d}=dr;d.name=d.name.trim();if(d.link){d.link=d.link.trim();if(d.link&&!/^https?:\/\//i.test(d.link))d.link='https://'+d.link}d.nf=(fl||[]).length;if(ed==='new'){if(col){col.add(d).then(r=>{FL[r.id]=fl||[];svF()}).catch(()=>{})}else{const nid='l'+Date.now();T.push({id:nid,...d});FL[nid]=fl||[]}}else{patch(ed,d);FL[ed]=fl||[]}svF();ed=null;T.sort((x,y)=>x.name.localeCompare(y.name));if(!col)sv('T',T)}
+render(1)});
+document.addEventListener('change',e=>{if(e.target.dataset.s==='city'){city=e.target.value;render();return}if(e.target.dataset.s==='vm'){vm=e.target.value;render();return}if(e.target.dataset.fu){addFiles(e.target.files);return}const f=e.target.dataset.f;if(f){const id=e.target.closest('.trip').dataset.id;patch(id,{[f]:e.target.value})}});
+document.addEventListener('input',e=>{if(e.target.dataset.s==='q')q=e.target.value;if(e.target.dataset.d)dr[e.target.dataset.d]=e.target.value;if(e.target.dataset.t){dr[e.target.dataset.t]=e.target.value;dr.transport=trTxt(dr)}if(e.target.dataset.ds!==undefined)dr.dests[+e.target.dataset.ds]=e.target.value});
+document.addEventListener('keydown',e=>{if(e.key==='Enter'&&e.target.dataset.s==='q')e.target.blur()});
+document.addEventListener('focusout',()=>setTimeout(render,50));
+render();
+(async()=>{try{const db=await claude.use('db');if(!db)return;col=db.collection('trips');cref=db.doc('meta/checks');live=true;
+col.onSnapshot(s=>{T=s.docs.map(d=>({id:d.id,...d.data()})).sort((x,y)=>String(x.name).localeCompare(String(y.name)));render()},()=>{});
+cref.onSnapshot(s=>{checks=s.exists?{...checks,...s.data()}:checks;sv('ck',checks);render()},()=>{});render()}catch(e){}})();
+</script>
+</body>
+</html>
